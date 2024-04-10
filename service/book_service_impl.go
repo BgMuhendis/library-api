@@ -48,7 +48,7 @@ func (b BookServiceImpl) FindById(bookId int) *response.BooksResponse {
 	book, err := b.BookRepository.FindById(bookId)
 	helper.ErrorPanic(err)
 	
-	if book == nil {
+	if book != nil {
 
 		bookData := response.BooksResponse{
 			Name:   book.Name,

@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"errors"
-	"gorm.io/gorm"
 	"library/data/request"
 	"library/helper"
 	"library/model"
+
+	"gorm.io/gorm"
 )
 
 type BookRepositoryImpl struct {
@@ -23,10 +23,10 @@ func (b BookRepositoryImpl) Save(book model.Book) {
 
 func (b BookRepositoryImpl) Update(book model.Book) {
 	var updateBook = request.UpdateBookRequest{
+		Id:     book.Id,
 		Status: book.Status,
 	}
-
-	result := b.Db.Model(&book).Updates(updateBook)
+	result := b.Db.Model(&book).Where("status = ?",!updateBook.Status).Update("status",updateBook.Status)
 	helper.ErrorPanic(result.Error)
 
 }
@@ -41,10 +41,11 @@ func (b BookRepositoryImpl) Delete(bookId int) {
 func (b BookRepositoryImpl) FindById(bookId int) (*model.Book, error) {
 	var book model.Book
 	result := b.Db.Find(&book, bookId)
-	if result != nil {
+	if result.RowsAffected == 1 {
 		return &book, nil
+
 	} else {
-		return nil, errors.New("Book is not found")
+		return nil, nil
 	}
 }
 

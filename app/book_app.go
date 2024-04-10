@@ -80,6 +80,7 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 	id, err := strconv.Atoi(bookId)
 	helper.ErrorPanic(err)
 	bookResponse := bookApp.bookService.FindById(id)
+
 	webResponse := response.Response{
 		Code:    200,
 		Status:  "OK",
