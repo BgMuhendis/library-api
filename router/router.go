@@ -8,12 +8,6 @@ import (
 func NewRouter(bookApp *app.BookApp) *fiber.App {
 	router := fiber.New()
 
-	router.Get("/check", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(fiber.Map{
-			"Status":  "Success",
-			"Message": "Welcome new project",
-		})
-	})
 	router.Route("/book", func(router fiber.Router) {
 		router.Post("/", bookApp.Create)
 		router.Get("/", bookApp.FindAll)
