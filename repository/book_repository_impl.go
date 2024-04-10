@@ -38,13 +38,13 @@ func (b BookRepositoryImpl) Delete(bookId int) {
 
 }
 
-func (b BookRepositoryImpl) FindById(bookId int) (model.Book, error) {
+func (b BookRepositoryImpl) FindById(bookId int) (*model.Book, error) {
 	var book model.Book
 	result := b.Db.Find(&book, bookId)
 	if result != nil {
-		return book, nil
+		return &book, nil
 	} else {
-		return book, errors.New("Book is not found")
+		return nil, errors.New("Book is not found")
 	}
 }
 

@@ -36,7 +36,7 @@ func (b BookServiceImpl) Update(book request.UpdateBookRequest) {
 	bookData, err := b.BookRepository.FindById(book.Id)
 	helper.ErrorPanic(err)
 	bookData.Status = book.Status
-	b.BookRepository.Update(bookData)
+	b.BookRepository.Update(*bookData)
 
 }
 
@@ -44,15 +44,20 @@ func (b BookServiceImpl) Delete(bookId int) {
 	b.BookRepository.Delete(bookId)
 }
 
-func (b BookServiceImpl) FindById(bookId int) response.BooksResponse {
+func (b BookServiceImpl) FindById(bookId int) *response.BooksResponse {
 	book, err := b.BookRepository.FindById(bookId)
 	helper.ErrorPanic(err)
-	bookData := response.BooksResponse{
-		Name:   book.Name,
-		Author: book.Author,
-		Status: book.Status,
+	
+	if book == nil {
+
+		bookData := response.BooksResponse{
+			Name:   book.Name,
+			Author: book.Author,
+			Status: book.Status,
+		}
+		return &bookData
 	}
-	return bookData
+	return nil
 
 }
 
