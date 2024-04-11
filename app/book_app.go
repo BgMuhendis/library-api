@@ -2,7 +2,6 @@ package app
 
 import (
 	"encoding/json"
-	"fmt"
 	"library/cache"
 	"library/data/request"
 	"library/data/response"
@@ -46,6 +45,7 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 }
 
 func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
+
 	updateBookRequest := request.UpdateBookRequest{}
 	err := ctx.BodyParser(&updateBookRequest)
 	helper.ThrowError(err)
@@ -63,13 +63,18 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 		Message: "Successfully updated a book",
 		Data:    nil,
 	}
-	cacheRedis.Del("books")
+
+	go func(value bool) {
+		cacheRedis.Del("books")
+	}(true)
+
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
 
 func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
+
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
 	helper.ThrowError(err)
@@ -82,13 +87,18 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 		Data:    nil,
 	}
 
-	cacheRedis.Del("books")
+	go func(value bool) {
+		cacheRedis.Del("books")
+	}(true)
+
+	
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
 
 func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
+	
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
 	helper.ThrowError(err)
@@ -108,20 +118,14 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 
 	var bookResponse []response.BooksResponse
-
 	booksCache := cacheRedis.Get("books")
 
 	if booksCache !=nil {
-		
-	
 		err := json.Unmarshal(booksCache,&bookResponse)
-		fmt.Println("Burada var")
 
 		if err != nil {
 			return nil
 		}
-
-
 	}else{
 
 		bookResponse = bookApp.bookService.FindAll()
@@ -129,7 +133,6 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 		booksListBytes , _ := json.Marshal(bookResponse)
 
 		go func(books []byte) {
-			fmt.Println("Kaydedildi")
 			cacheRedis.Set("books",books)
 		}(booksListBytes)
 	}

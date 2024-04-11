@@ -23,7 +23,6 @@ func NewRouter(bookApp *app.BookApp) *fiber.App {
 
 	router.Use(func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
-
 			"success": false,
 			"message":"Endpoint not found!",
 		})
