@@ -1,17 +1,25 @@
 package app
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"encoding/json"
+	"fmt"
+	"library/cache"
 	"library/data/request"
 	"library/data/response"
 	"library/helper"
 	"library/service"
 	"strconv"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type BookApp struct {
 	bookService service.BookService
 }
+
+var (
+	cacheRedis = cache.NewRedisClient("localhost:6379")
+)
 
 func NewBookApp(service service.BookService) *BookApp {
 	return &BookApp{
@@ -23,7 +31,7 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 	crateBookRequest := request.CreateBookRequest{}
 	err := ctx.BodyParser(&crateBookRequest)
 
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 	bookApp.bookService.Create(crateBookRequest)
 
 	webResponse := response.Response{
@@ -39,11 +47,11 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 	updateBookRequest := request.UpdateBookRequest{}
 	err := ctx.BodyParser(&updateBookRequest)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 
 	updateBookRequest.Id = id
 	bookApp.bookService.Update(updateBookRequest)
@@ -62,7 +70,7 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 	bookApp.bookService.Delete(id)
 
 	webResponse := response.Response{
@@ -78,7 +86,7 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 	bookResponse := bookApp.bookService.FindById(id)
 
 	webResponse := response.Response{
@@ -87,12 +95,40 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 		Message: "Successfully get a book",
 		Data:    bookResponse,
 	}
+
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
 
 func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
-	bookResponse := bookApp.bookService.FindAll()
+
+	var bookResponse []response.BooksResponse
+
+	booksCache := cacheRedis.Get("books")
+
+	if booksCache !=nil {
+		
+	
+		err := json.Unmarshal(booksCache,&bookResponse)
+		fmt.Println("Burada var")
+
+		if err != nil {
+			return nil
+		}
+
+
+	}else{
+
+		bookResponse = bookApp.bookService.FindAll()
+
+		booksListBytes , _ := json.Marshal(bookResponse)
+
+		go func(books []byte) {
+			fmt.Println("Kaydedildi")
+			cacheRedis.Set("books",books)
+		}(booksListBytes)
+	}
+
 	webResponse := response.Response{
 		Code:    200,
 		Status:  "OK",

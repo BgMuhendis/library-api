@@ -18,7 +18,7 @@ func NewBookRepositoryImpl(Db *gorm.DB) BookRepository {
 
 func (b BookRepositoryImpl) Save(book model.Book) {
 	result := b.Db.Create(&book)
-	helper.ErrorPanic(result.Error)
+	helper.ThrowError(result.Error)
 }
 
 func (b BookRepositoryImpl) Update(book model.Book) {
@@ -27,14 +27,14 @@ func (b BookRepositoryImpl) Update(book model.Book) {
 		Status: book.Status,
 	}
 	result := b.Db.Model(&book).Where("status = ?",!updateBook.Status).Update("status",updateBook.Status)
-	helper.ErrorPanic(result.Error)
+	helper.ThrowError(result.Error)
 
 }
 
 func (b BookRepositoryImpl) Delete(bookId int) {
 	var book model.Book
 	result := b.Db.Where("id=?", bookId).Delete(&book)
-	helper.ErrorPanic(result.Error)
+	helper.ThrowError(result.Error)
 
 }
 
@@ -52,6 +52,6 @@ func (b BookRepositoryImpl) FindById(bookId int) (*model.Book, error) {
 func (b BookRepositoryImpl) FindAll() []model.Book {
 	var books []model.Book
 	result := b.Db.Find(&books)
-	helper.ErrorPanic(result.Error)
+	helper.ThrowError(result.Error)
 	return books
 }

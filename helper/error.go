@@ -1,6 +1,6 @@
 package helper
 
-func ErrorPanic(err error) {
+func ThrowError(err error) {
 	if err != nil {
 		panic(err)
 	}

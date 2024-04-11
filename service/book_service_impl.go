@@ -20,7 +20,7 @@ func NewBookServiceImpl(bookRepository repository.BookRepository, validate *vali
 
 func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 	err := b.validate.Struct(book)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 
 	bookModel := model.Book{
 		Name:   book.Name,
@@ -34,7 +34,7 @@ func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 
 func (b BookServiceImpl) Update(book request.UpdateBookRequest) {
 	bookData, err := b.BookRepository.FindById(book.Id)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 	bookData.Status = book.Status
 	b.BookRepository.Update(*bookData)
 
@@ -46,7 +46,7 @@ func (b BookServiceImpl) Delete(bookId int) {
 
 func (b BookServiceImpl) FindById(bookId int) *response.BooksResponse {
 	book, err := b.BookRepository.FindById(bookId)
-	helper.ErrorPanic(err)
+	helper.ThrowError(err)
 	
 	if book != nil {
 
