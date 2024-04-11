@@ -40,6 +40,7 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
+	cacheRedis.Del("books")
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
@@ -62,6 +63,7 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 		Message: "Successfully updated a book",
 		Data:    nil,
 	}
+	cacheRedis.Del("books")
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
@@ -79,6 +81,9 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 		Message: "Successfully deleted a book",
 		Data:    nil,
 	}
+
+	cacheRedis.Del("books")
+
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }

@@ -50,3 +50,7 @@ func (r *RedisRepository) Set(key string,value []byte)  {
 
 
 }
+
+func (r *RedisRepository) Del (key string) {
+	r.client.Del(ctx,key).Result()
+}
