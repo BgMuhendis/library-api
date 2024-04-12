@@ -27,6 +27,7 @@ func NewBookApp(service service.BookService) *BookApp {
 }
 
 func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
+	
 	crateBookRequest := request.CreateBookRequest{}
 	err := ctx.BodyParser(&crateBookRequest)
 
@@ -39,7 +40,10 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
-	cacheRedis.Del("books")
+	go func(value bool) {
+		cacheRedis.Del("books")
+	}(true)
+
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
@@ -98,7 +102,7 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 }
 
 func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
-	
+
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
 	helper.ThrowError(err)

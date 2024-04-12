@@ -15,7 +15,7 @@ import (
 
 
 func main() {
-	loadConfig, err := config.Load(",")
+	loadConfig, err := config.EnvLoad(".")
 	if err != nil {
 		log.Fatal("Could not load environment variables", err)
 	}

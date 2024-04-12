@@ -1,6 +1,9 @@
 package config
 
-import viper "github.com/spf13/viper"
+import (
+	
+	viper "github.com/spf13/viper"
+)
 
 type Config struct {
 	DBHost     string `mapstructure:"POSTGRES_HOST"`
@@ -10,10 +13,10 @@ type Config struct {
 	DBName     string `mapstructure:"POSTGRES_DB"`
 }
 
-func Load(path string) (config Config, err error) {
+func EnvLoad(path string) (config Config, err error) {
+
 	viper.AddConfigPath(path)
-	viper.SetConfigName("../app")
-	viper.SetConfigType("env")
+	viper.SetConfigFile(".env")
 
 	viper.AutomaticEnv()
 
@@ -28,5 +31,5 @@ func Load(path string) (config Config, err error) {
 		return
 	}
 
-	return
+	return config , nil
 }

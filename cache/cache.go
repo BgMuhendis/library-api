@@ -40,12 +40,13 @@ func (r *RedisRepository) Get(key string) []byte{
 
 	return cacheBytes
 }
+
 func (r *RedisRepository) Set(key string,value []byte)  {
 
 	r.client.Set(ctx,key,value,0)
 }
 
 func (r *RedisRepository) Del (key string) {
-	
-	r.client.Del(ctx,key).Result()
+
+	r.client.Del(ctx,key)
 }
