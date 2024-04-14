@@ -8,14 +8,16 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: "host=postgresql_db user=postgres password=postgres dbname=library sslmode=disable"
+      DATABASE_URL: "host=postgresql user=postgres password=postgres dbname=library sslmode=disable"
     depends_on:
       - postgresql-db
     ports:
       - 3000:3000
+    networks:
+      - library_network
       
   postgresql-db:
-    container_name: postgresql_db
+    container_name: postgresql
     image: postgres:alpine
     restart: always
     environment: 
@@ -26,15 +28,22 @@ services:
       - 5432:5432
     volumes: 
       - postgres:/var/lib/postgresql/data
+    networks:
+      - library_network
   
   redis-cache:
-    container_name: redis-cache
+    container_name: redis
     image: redis
     restart: always
     ports:
       - 6379:6379
+    networks:
+      - library_network
 
  
 volumes:
   postgres:
+
+networks:
+  library_network:
   

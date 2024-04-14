@@ -1,2 +1,6 @@
 *.env
 *.exe
+middlewares
+data/response/login_response.go
+data/request/login_request.go
+models/user.go

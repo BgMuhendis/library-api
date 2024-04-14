@@ -35,8 +35,6 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 	bookApp.bookService.Create(crateBookRequest)
 
 	webResponse := response.Response{
-		Code:    200,
-		Status:  "OK",
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
@@ -62,8 +60,6 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 	bookApp.bookService.Update(updateBookRequest)
 
 	webResponse := response.Response{
-		Code:    200,
-		Status:  "OK",
 		Message: "Successfully updated a book",
 		Data:    nil,
 	}
@@ -85,8 +81,6 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 	bookApp.bookService.Delete(id)
 
 	webResponse := response.Response{
-		Code:    200,
-		Status:  "OK",
 		Message: "Successfully deleted a book",
 		Data:    nil,
 	}
@@ -109,8 +103,6 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 	bookResponse := bookApp.bookService.FindById(id)
 
 	webResponse := response.Response{
-		Code:    200,
-		Status:  "OK",
 		Message: "Successfully get a book",
 		Data:    bookResponse,
 	}
@@ -142,9 +134,7 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 	}
 
 	webResponse := response.Response{
-		Code:    200,
-		Status:  "OK",
-		Message: "Successfully get a book",
+		Message: "Successfully get books",
 		Data:    bookResponse,
 	}
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)

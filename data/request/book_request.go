@@ -11,3 +11,4 @@ type UpdateBookRequest struct {
 	Id     int  `validate:"reguired" json:"id"`
 	Status bool `validate:"required" json:"status"`
 }
+

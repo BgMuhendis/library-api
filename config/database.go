@@ -18,5 +18,6 @@ func ConnectDB() *gorm.DB {
 		panic(err)
 	}
 
+
 	return db
 }

@@ -4,7 +4,7 @@ import (
 	"library/data/request"
 	"library/data/response"
 	"library/helper"
-	"library/model"
+	"library/models"
 	"library/repository"
 
 	"github.com/go-playground/validator/v10"
@@ -23,7 +23,7 @@ func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 	err := b.validate.Struct(book)
 	helper.ThrowError(err)
 
-	bookModel := model.Book{
+	bookModel := models.Book{
 		Name:   book.Name,
 		Page:   book.Page,
 		Author: book.Author,

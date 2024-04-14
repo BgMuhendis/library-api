@@ -3,7 +3,7 @@ package repository
 import (
 	"library/data/request"
 	"library/helper"
-	"library/model"
+	"library/models"
 
 	"gorm.io/gorm"
 )
@@ -16,12 +16,12 @@ func NewBookRepositoryImpl(Db *gorm.DB) BookRepository {
 	return BookRepositoryImpl{Db: Db}
 }
 
-func (b BookRepositoryImpl) Save(book model.Book) {
+func (b BookRepositoryImpl) Save(book models.Book) {
 	result := b.Db.Create(&book)
 	helper.ThrowError(result.Error)
 }
 
-func (b BookRepositoryImpl) Update(book model.Book) {
+func (b BookRepositoryImpl) Update(book models.Book) {
 	var updateBook = request.UpdateBookRequest{
 		Id:     book.Id,
 		Status: book.Status,
@@ -32,14 +32,14 @@ func (b BookRepositoryImpl) Update(book model.Book) {
 }
 
 func (b BookRepositoryImpl) Delete(bookId int) {
-	var book model.Book
+	var book models.Book
 	result := b.Db.Where("id=?", bookId).Delete(&book)
 	helper.ThrowError(result.Error)
 
 }
 
-func (b BookRepositoryImpl) FindById(bookId int) (*model.Book, error) {
-	var book model.Book
+func (b BookRepositoryImpl) FindById(bookId int) (*models.Book, error) {
+	var book models.Book
 	result := b.Db.Find(&book, bookId)
 	if result.RowsAffected == 1 {
 		return &book, nil
@@ -49,8 +49,8 @@ func (b BookRepositoryImpl) FindById(bookId int) (*model.Book, error) {
 	}
 }
 
-func (b BookRepositoryImpl) FindAll() []model.Book {
-	var books []model.Book
+func (b BookRepositoryImpl) FindAll() []models.Book {
+	var books []models.Book
 	result := b.Db.Find(&books)
 	helper.ThrowError(result.Error)
 	return books

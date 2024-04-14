@@ -3,7 +3,7 @@ package main
 import (
 	"library/app"
 	"library/config"
-	"library/model"
+	"library/models"
 	"library/repository"
 	"library/router"
 	"library/service"
@@ -16,11 +16,10 @@ import (
 
 
 func main() {
-
-	_, err := config.EnvLoad(".")
+/* 	_, err := config.EnvLoad(".")
 	if err != nil {
 		log.Fatal("Could not load environment variables", err)
-	}
+	} */
 
 	if err := godotenv.Load(); err!= nil {
 		log.Println("No .env ile found")
@@ -28,9 +27,13 @@ func main() {
 
 	db := config.ConnectDB()
 
+	postgres, _ := db.DB()
+
+	defer postgres.Close()
+
 	validate := validator.New()
 
-	db.Table("books").AutoMigrate(&model.Book{})
+	db.Table("books").AutoMigrate(&models.Book{})
 
 	bookRepository := repository.NewBookRepositoryImpl(db)
 

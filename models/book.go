@@ -1,4 +1,4 @@
-package model
+package models
 
 type Book struct {
 	Id     int    `gorm:"primaryKey; not null" json:"id"`
