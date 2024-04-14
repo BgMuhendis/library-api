@@ -10,17 +10,24 @@ import (
 	"log"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
 
 
 
 func main() {
-	loadConfig, err := config.EnvLoad(".")
+
+	_, err := config.EnvLoad(".")
 	if err != nil {
 		log.Fatal("Could not load environment variables", err)
 	}
 
-	db := config.ConnectDB(&loadConfig)
+	if err := godotenv.Load(); err!= nil {
+		log.Println("No .env ile found")
+	}
+
+	db := config.ConnectDB()
+
 	validate := validator.New()
 
 	db.Table("books").AutoMigrate(&model.Book{})

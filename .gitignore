@@ -1,4 +1,2 @@
 *.env
 *.exe
-docker-compose.yml
-Dockerfile

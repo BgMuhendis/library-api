@@ -17,7 +17,7 @@ type BookApp struct {
 }
 
 var (
-	cacheRedis = cache.NewRedisClient("localhost:6379")
+	cacheRedis = cache.NewRedisClient("redis-cache:6379")
 )
 
 func NewBookApp(service service.BookService) *BookApp {
@@ -40,9 +40,9 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
-	go func(value bool) {
+/* 	go func(value bool) {
 		cacheRedis.Del("books")
-	}(true)
+	}(true) */
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
