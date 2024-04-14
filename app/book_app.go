@@ -3,8 +3,8 @@ package app
 import (
 	"encoding/json"
 	"library/cache"
-	"library/data/request"
-	"library/data/response"
+	"library/data/request/book"
+	"library/data/response/book"
 	"library/helper"
 	"library/service"
 	"strconv"

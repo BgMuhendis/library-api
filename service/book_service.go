@@ -1,8 +1,8 @@
 package service
 
 import (
-	"library/data/request"
-	"library/data/response"
+	"library/data/request/book"
+	"library/data/response/book"
 )
 
 type BookService interface {

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"library/data/request"
+	"library/data/request/book"
 	"library/helper"
 	"library/models"
 
@@ -51,7 +51,7 @@ func (b BookRepositoryImpl) FindById(bookId int) (*models.Book, error) {
 
 func (b BookRepositoryImpl) FindAll() []models.Book {
 	var books []models.Book
-	result := b.Db.Find(&books)
+	result := b.Db.Order("id").Find(&books)
 	helper.ThrowError(result.Error)
 	return books
 }
