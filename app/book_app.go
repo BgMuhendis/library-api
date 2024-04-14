@@ -40,9 +40,9 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
-/* 	go func(value bool) {
+	go func(value bool) {
 		cacheRedis.Del("books")
-	}(true) */
+	}(true)
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 

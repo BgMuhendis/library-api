@@ -1,12 +1,13 @@
 package service
 
 import (
-	"github.com/go-playground/validator/v10"
 	"library/data/request"
 	"library/data/response"
 	"library/helper"
 	"library/model"
 	"library/repository"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type BookServiceImpl struct {
@@ -51,6 +52,7 @@ func (b BookServiceImpl) FindById(bookId int) *response.BooksResponse {
 	if book != nil {
 
 		bookData := response.BooksResponse{
+			Id: book.Id,
 			Name:   book.Name,
 			Author: book.Author,
 			Status: book.Status,
@@ -67,6 +69,7 @@ func (b BookServiceImpl) FindAll() []response.BooksResponse {
 
 	for _, value := range result {
 		book := response.BooksResponse{
+			Id: value.Id,
 			Name:   value.Name,
 			Author: value.Author,
 			Status: value.Status,
