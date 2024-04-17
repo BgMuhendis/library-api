@@ -11,6 +11,7 @@ services:
       DATABASE_URL: "host=postgresql user=postgres password=postgres dbname=library sslmode=disable"
     depends_on:
       - postgresql-db
+      - redis-cache
     ports:
       - 3000:3000
     networks:
