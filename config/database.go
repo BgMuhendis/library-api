@@ -1,16 +1,19 @@
 package config
 
 import (
-	_"fmt"	
+	"library/models"
 	"os"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func ConnectDB() *gorm.DB {
 
-/* 	dbInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", os.Getenv("POSTGRES_HOST"),os.Getenv("POSTGRES_PORT"),os.Getenv("POSTGRES_USER"),os.Getenv("POSTGRES_PASSWORD"),os.Getenv("POSTGRES_DB"))
- */
+type DBInfo struct {
+		Db  *gorm.DB
+}
+
+func ConnectDB() *DBInfo {
  dbInfo := os.Getenv("DATABASE_URL")
  db,err := gorm.Open(postgres.Open(dbInfo), &gorm.Config{})
 
@@ -19,5 +22,16 @@ func ConnectDB() *gorm.DB {
 	}
 
 
-	return db
+	return &DBInfo {
+		Db:db,
+	}
+}
+
+func (d *DBInfo) DBClose()  {
+		 connection, _ := d.Db.DB()
+		 connection.Close() 
+}
+
+func (d *DBInfo) Automigrate(tableName string)  {
+		d.Db.Table("books").AutoMigrate(&models.Book{})
 }

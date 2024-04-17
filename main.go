@@ -3,7 +3,6 @@ package main
 import (
 	"library/app"
 	"library/config"
-	"library/models"
 	"library/repository"
 	"library/router"
 	"library/service"
@@ -25,17 +24,15 @@ func main() {
 		log.Println("No .env ile found")
 	}
 
-	db := config.ConnectDB()
+	connect := config.ConnectDB()
 
-	postgres, _ := db.DB()
-
-	defer postgres.Close()
+	defer connect.DBClose()
 
 	validate := validator.New()
 
-	db.Table("books").AutoMigrate(&models.Book{})
+	connect.Automigrate("books")
 
-	bookRepository := repository.NewBookRepositoryImpl(db)
+	bookRepository := repository.NewBookRepositoryImpl(connect.Db)
 
 	bookService := service.NewBookServiceImpl(bookRepository, validate)
 
