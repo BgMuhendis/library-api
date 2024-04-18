@@ -15,11 +15,7 @@ import (
 
 
 func main() {
-/* 	_, err := config.EnvLoad(".")
-	if err != nil {
-		log.Fatal("Could not load environment variables", err)
-	} */
-
+	
 	if err := godotenv.Load(); err!= nil {
 		log.Println("No .env ile found")
 	}
