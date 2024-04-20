@@ -1,9 +1,11 @@
-package router
+package routes
 
 import (
 	"library/app"
 
 	"github.com/gofiber/fiber/v2"
+
+	
 )
 
 func NewRouter(bookApp *app.BookApp) *fiber.App {

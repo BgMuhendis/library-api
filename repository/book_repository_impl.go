@@ -1,8 +1,9 @@
 package repository
 
 import (
-	"library/model/dto/request"
+	"errors"
 	"library/helper"
+	"library/model/dto/request"
 	"library/model/entity"
 
 	"gorm.io/gorm"
@@ -41,12 +42,10 @@ func (b BookRepositoryImpl) Delete(bookId int) {
 func (b BookRepositoryImpl) FindById(bookId int) (*entity.Book, error) {
 	var book entity.Book
 	result := b.Db.Find(&book, bookId)
-	if result.RowsAffected == 1 {
-		return &book, nil
-
-	} else {
-		return nil, nil
+	if result.RowsAffected != 1 {
+		return nil, errors.New("Book not found")
 	}
+	return &book, nil
 }
 
 func (b BookRepositoryImpl) FindAll() []entity.Book {

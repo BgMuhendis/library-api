@@ -4,7 +4,7 @@ import (
 	"library/app"
 	"library/database"
 	"library/repository"
-	"library/router"
+	"library/routes"
 	"library/service"
 	"log"
 	"github.com/go-playground/validator/v10"
@@ -34,7 +34,7 @@ func main() {
 
 	bookApp := app.NewBookApp(bookService)
 
-	routes := router.NewRouter(bookApp)
+	routes := routes.NewRouter(bookApp)
 
 	app := fiber.New()
 

@@ -19,12 +19,16 @@ var (
 	cacheRedis = cache.NewRedisClient("redis-cache:6379")
 )
 
-func cacheDeleteBook (){}
 
 func NewBookApp(service service.BookService) *BookApp {
 	return &BookApp{
 		bookService: service,
 	}
+}
+
+func cacheDelete() {
+
+	cacheRedis.Del("books")
 }
 
 func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
@@ -39,9 +43,7 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 		Message: "Successfully created a book",
 		Data:    nil,
 	}
-	go func(value bool) {
-		cacheRedis.Del("books")
-	}(true)
+	go cacheDelete()
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
@@ -65,9 +67,7 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 		Data:    nil,
 	}
 
-	go func(value bool) {
-		cacheRedis.Del("books")
-	}(true)
+	go cacheDelete()
 
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
@@ -86,10 +86,7 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 		Data:    nil,
 	}
 
-	go func(value bool) {
-		cacheRedis.Del("books")
-	}(true)
-
+	go cacheDelete()
 	
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
