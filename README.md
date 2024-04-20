@@ -71,7 +71,7 @@ Running the application on docker. To run the application on docker;
 ```
 To run the application locally;
 
-First you need to change the redis address to `local`. You need to write `localhost` instead of `redis-cache` in the bottom code snippet written in the book_app go file under the app folder.
+First you need to change the redis address to `local`. You need to write `localhost` instead of `redis-cache` in the bottom code snippet written in the book_app go file under the controller folder.
 
 ```go
 var (
