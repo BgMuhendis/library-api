@@ -37,7 +37,8 @@ func cacheDelete() {
 //	@Tags			Books
 //	@Accept			json
 //	@Produce		json
-//	@Success		200	{json}	json
+//	@Param			request	body	request.CreateBookRequest	true	"Request of Creating Book Object"
+//	@Success		200		{json}	json
 //	@Router			/api/book [post]
 func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 	

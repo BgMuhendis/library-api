@@ -57,6 +57,17 @@ const docTemplate = `{
                     "Books"
                 ],
                 "summary": "Create Book by Code",
+                "parameters": [
+                    {
+                        "description": "Request of Creating Book Object",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateBookRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -156,6 +167,37 @@ const docTemplate = `{
                             "type": "json"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "request.CreateBookRequest": {
+            "description": "Request about creating Book",
+            "type": "object",
+            "required": [
+                "author",
+                "name",
+                "page"
+            ],
+            "properties": {
+                "author": {
+                    "type": "string",
+                    "maxLength": 30,
+                    "minLength": 10
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 30,
+                    "minLength": 2
+                },
+                "page": {
+                    "type": "integer",
+                    "maximum": 500,
+                    "minimum": 20
+                },
+                "status": {
+                    "type": "boolean"
                 }
             }
         }

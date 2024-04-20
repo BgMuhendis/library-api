@@ -1,4 +1,27 @@
 basePath: /
+definitions:
+  request.CreateBookRequest:
+    description: Request about creating Book
+    properties:
+      author:
+        maxLength: 30
+        minLength: 10
+        type: string
+      name:
+        maxLength: 30
+        minLength: 2
+        type: string
+      page:
+        maximum: 500
+        minimum: 20
+        type: integer
+      status:
+        type: boolean
+    required:
+    - author
+    - name
+    - page
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -31,6 +54,13 @@ paths:
       consumes:
       - application/json
       description: Create Book by Code in detail
+      parameters:
+      - description: Request of Creating Book Object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateBookRequest'
       produces:
       - application/json
       responses:
