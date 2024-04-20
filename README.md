@@ -82,5 +82,5 @@ var (
 After updating, you can test the application by running the following command
 
 ```shell
- go run main.go
+ go run cmd/main.go
 ```
