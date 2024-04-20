@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"library/app"
+	"library/controller"
 
 	"github.com/gofiber/fiber/v2"
 
 	
 )
 
-func NewRouter(bookApp *app.BookApp) *fiber.App {
+func NewRouter(bookApp *controller.BookApp) *fiber.App {
 	router := fiber.New()
 
 	router.Route("/book", func(router fiber.Router) {

@@ -1,0 +1,105 @@
+basePath: /
+host: localhost:3000
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: This is a sample swagger for Library API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Library API
+  version: "1.0"
+paths:
+  /api/book:
+    get:
+      consumes:
+      - application/json
+      description: Find Book All by Code in detail
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Find All Book by Code
+      tags:
+      - Books
+    post:
+      consumes:
+      - application/json
+      description: Create Book by Code in detail
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: json
+      summary: Create Book by Code
+      tags:
+      - Books
+  /api/book/{bookId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Book by Code in detail
+      parameters:
+      - description: code of Book
+        in: path
+        name: bookId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: json
+      summary: Delete Book by Code
+      tags:
+      - Books
+    get:
+      consumes:
+      - application/json
+      description: Find Book by Code in detail
+      parameters:
+      - description: code of Book
+        in: path
+        name: bookId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: json
+      summary: Find Book by Code
+      tags:
+      - Books
+    patch:
+      consumes:
+      - application/json
+      description: Update Book by Code in detail
+      parameters:
+      - description: code of Book
+        in: path
+        name: bookId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: json
+      summary: Update Book by Code
+      tags:
+      - Books
+swagger: "2.0"

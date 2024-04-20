@@ -1,4 +1,4 @@
-package app
+package controller
 
 import (
 	"encoding/json"
@@ -31,6 +31,14 @@ func cacheDelete() {
 	cacheRedis.Del("books")
 }
 
+// CreateBook Create Order by Code
+//	@Summary		Create Book by Code
+//	@Description	Create Book by Code in detail
+//	@Tags			Books
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{json}	json
+//	@Router			/api/book [post]
 func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 	
 	crateBookRequest := request.CreateBookRequest{}
@@ -49,6 +57,15 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 
 }
 
+// UpdateBook Update Order by Code
+//	@Summary		Update Book by Code
+//	@Description	Update Book by Code in detail
+//	@Tags			Books
+//	@Accept			json
+//	@Produce		json
+//	@Param			bookId	path	int	true	"code of Book"
+//	@Success		200		{json}	json
+//	@Router			/api/book/{bookId} [patch]
 func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 
 	updateBookRequest := request.UpdateBookRequest{}
@@ -73,7 +90,15 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
-
+// DeleteBook Delete Book by Code
+//	@Summary		Delete Book by Code
+//	@Description	Delete Book by Code in detail
+//	@Tags			Books
+//	@Accept			json
+//	@Produce		json
+//	@Param			bookId	path	int	true	"code of Book"
+//	@Success		200		{json}	json
+//	@Router			/api/book/{bookId} [delete]
 func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 
 	bookId := ctx.Params("bookId")
@@ -93,6 +118,15 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 
 }
 
+// FindBook Find Book by Code
+//	@Summary		Find Book by Code
+//	@Description	Find Book by Code in detail
+//	@Tags			Books
+//	@Accept			json
+//	@Produce		json
+//	@Param			bookId	path	int	true	"code of Book"
+//	@Success		200		{json}	json
+//	@Router			/api/book/{bookId} [get]
 func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 
 	bookId := ctx.Params("bookId")
@@ -109,6 +143,14 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 
 }
 
+// FindAllBook Find All Book by Code
+//	@Summary		Find All Book by Code
+//	@Description	Find Book All by Code in detail
+//	@Tags			Books
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{string}	json
+//	@Router			/api/book [get]
 func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 
 	var bookResponse []response.BooksResponse

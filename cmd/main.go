@@ -1,7 +1,7 @@
 package main
 
 import (
-	"library/app"
+	"library/controller"
 	"library/database"
 	"library/repository"
 	"library/routes"
@@ -10,12 +10,24 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	"github.com/gofiber/swagger"
+	_"library/docs"
 )
 
-
-
+//	@title			Library API
+//	@version		1.0
+//	@description	This is a sample swagger for Library API
+//	@termsOfService	http://swagger.io/terms/
+//	@contact.name	API Support
+//	@contact.email	fiber@swagger.io
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+//	@host			localhost:3000
+//	@BasePath		/
 func main() {
-	
+	app := fiber.New()
+	app.Get("/swagger/*",swagger.HandlerDefault)
+
 	if err := godotenv.Load(); err!= nil {
 		log.Println("No .env ile found")
 	}
@@ -32,11 +44,11 @@ func main() {
 
 	bookService := service.NewBookServiceImpl(bookRepository, validate)
 
-	bookApp := app.NewBookApp(bookService)
+	bookApp := controller.NewBookApp(bookService)
 
 	routes := routes.NewRouter(bookApp)
 
-	app := fiber.New()
+	
 
 	app.Mount("/api", routes)
 
