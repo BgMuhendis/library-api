@@ -1,10 +1,10 @@
 package service
 
 import (
-	"library/data/request/book"
-	"library/data/response/book"
+	"library/model/dto/request"
+	"library/model/dto/response"
 	"library/helper"
-	"library/models"
+	"library/model/entity"
 	"library/repository"
 
 	"github.com/go-playground/validator/v10"
@@ -23,7 +23,7 @@ func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 	err := b.validate.Struct(book)
 	helper.ThrowError(err)
 
-	bookModel := models.Book{
+	bookModel := entity.Book{
 		Name:   book.Name,
 		Page:   book.Page,
 		Author: book.Author,

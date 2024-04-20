@@ -1,11 +1,13 @@
 package repository
 
-import "library/models"
+import "library/model/entity"
+
+
 
 type BookRepository interface {
-	Save(book models.Book)
-	Update(book models.Book)
+	Save(book entity.Book)
+	Update(book entity.Book)
 	Delete(bookId int)
-	FindById(bookId int) (*models.Book, error)
-	FindAll() []models.Book
+	FindById(bookId int) (*entity.Book, error)
+	FindAll() []entity.Book
 }

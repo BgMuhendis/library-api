@@ -1,7 +1,7 @@
-package config
+package database
 
 import (
-	"library/models"
+	"library/model/entity"
 	"os"
 
 	"gorm.io/driver/postgres"
@@ -33,5 +33,5 @@ func (d *DBInfo) DBClose()  {
 }
 
 func (d *DBInfo) Automigrate(tableName string)  {
-		d.Db.Table("books").AutoMigrate(&models.Book{})
+		d.Db.Table("books").AutoMigrate(&entity.Book{})
 }

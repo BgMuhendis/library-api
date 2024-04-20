@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"library/data/request/book"
+	"library/model/dto/request"
 	"library/helper"
-	"library/models"
+	"library/model/entity"
 
 	"gorm.io/gorm"
 )
@@ -16,12 +16,12 @@ func NewBookRepositoryImpl(Db *gorm.DB) BookRepository {
 	return BookRepositoryImpl{Db: Db}
 }
 
-func (b BookRepositoryImpl) Save(book models.Book) {
+func (b BookRepositoryImpl) Save(book entity.Book) {
 	result := b.Db.Create(&book)
 	helper.ThrowError(result.Error)
 }
 
-func (b BookRepositoryImpl) Update(book models.Book) {
+func (b BookRepositoryImpl) Update(book entity.Book) {
 	var updateBook = request.UpdateBookRequest{
 		Id:     book.Id,
 		Status: book.Status,
@@ -32,14 +32,14 @@ func (b BookRepositoryImpl) Update(book models.Book) {
 }
 
 func (b BookRepositoryImpl) Delete(bookId int) {
-	var book models.Book
+	var book entity.Book
 	result := b.Db.Where("id=?", bookId).Delete(&book)
 	helper.ThrowError(result.Error)
 
 }
 
-func (b BookRepositoryImpl) FindById(bookId int) (*models.Book, error) {
-	var book models.Book
+func (b BookRepositoryImpl) FindById(bookId int) (*entity.Book, error) {
+	var book entity.Book
 	result := b.Db.Find(&book, bookId)
 	if result.RowsAffected == 1 {
 		return &book, nil
@@ -49,8 +49,8 @@ func (b BookRepositoryImpl) FindById(bookId int) (*models.Book, error) {
 	}
 }
 
-func (b BookRepositoryImpl) FindAll() []models.Book {
-	var books []models.Book
+func (b BookRepositoryImpl) FindAll() []entity.Book {
+	var books []entity.Book
 	result := b.Db.Order("id").Find(&books)
 	helper.ThrowError(result.Error)
 	return books

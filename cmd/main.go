@@ -2,7 +2,7 @@ package main
 
 import (
 	"library/app"
-	"library/config"
+	"library/database"
 	"library/repository"
 	"library/router"
 	"library/service"
@@ -20,7 +20,7 @@ func main() {
 		log.Println("No .env ile found")
 	}
 
-	connect := config.ConnectDB()
+	connect := database.ConnectDB()
 
 	defer connect.DBClose()
 

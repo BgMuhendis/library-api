@@ -3,12 +3,11 @@ package app
 import (
 	"encoding/json"
 	"library/cache"
-	"library/data/request/book"
-	"library/data/response/book"
+	"library/model/dto/request"
+	"library/model/dto/response"
 	"library/helper"
 	"library/service"
 	"strconv"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -19,6 +18,8 @@ type BookApp struct {
 var (
 	cacheRedis = cache.NewRedisClient("redis-cache:6379")
 )
+
+func cacheDeleteBook (){}
 
 func NewBookApp(service service.BookService) *BookApp {
 	return &BookApp{
