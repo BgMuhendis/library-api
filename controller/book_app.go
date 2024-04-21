@@ -64,7 +64,8 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 //	@Tags			Books
 //	@Accept			json
 //	@Produce		json
-//	@Param			bookId	path	int	true	"code of Book"
+//	@Param			bookId	path	int							true	"code of Book"
+//	@Param			request	body	request.UpdateBookRequest	true	"Request of Creating Book Object"
 //	@Success		200		{json}	json
 //	@Router			/api/book/{bookId} [patch]
 func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {

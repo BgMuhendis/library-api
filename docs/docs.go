@@ -158,6 +158,15 @@ const docTemplate = `{
                         "name": "bookId",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Request of Creating Book Object",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateBookRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -195,6 +204,21 @@ const docTemplate = `{
                     "type": "integer",
                     "maximum": 500,
                     "minimum": 20
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "request.UpdateBookRequest": {
+            "description": "Request about updating Book",
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
                 },
                 "status": {
                     "type": "boolean"

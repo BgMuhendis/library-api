@@ -9,6 +9,8 @@ type CreateBookRequest struct {
 	Status bool   `json:"status"`
 }
 
+// UpdateBookRequest
+// @Description Request about updating Book
 type UpdateBookRequest struct {
 	Id     int  `validate:"reguired" json:"id"`
 	Status bool `validate:"required" json:"status"`

@@ -22,6 +22,16 @@ definitions:
     - name
     - page
     type: object
+  request.UpdateBookRequest:
+    description: Request about updating Book
+    properties:
+      id:
+        type: integer
+      status:
+        type: boolean
+    required:
+    - status
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -122,6 +132,12 @@ paths:
         name: bookId
         required: true
         type: integer
+      - description: Request of Creating Book Object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateBookRequest'
       produces:
       - application/json
       responses:
