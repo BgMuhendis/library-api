@@ -3,7 +3,7 @@ package service
 import (
 	"library/model/dto/request"
 	"library/model/dto/response"
-	"library/helper"
+	"library/handlers"
 	"library/model/entity"
 	"library/repository"
 
@@ -21,7 +21,7 @@ func NewBookServiceImpl(bookRepository repository.BookRepository, validate *vali
 
 func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 	err := b.validate.Struct(book)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 
 	bookModel := entity.Book{
 		Name:   book.Name,
@@ -35,19 +35,24 @@ func (b BookServiceImpl) Create(book request.CreateBookRequest) {
 
 func (b BookServiceImpl) Update(book request.UpdateBookRequest) {
 	bookData, err := b.BookRepository.FindById(book.Id)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 	bookData.Status = book.Status
 	b.BookRepository.Update(*bookData)
 
 }
 
 func (b BookServiceImpl) Delete(bookId int) {
-	b.BookRepository.Delete(bookId)
+	book, err := b.BookRepository.FindById(bookId)
+	handlers.ThrowError(err)
+	if book !=nil {
+		b.BookRepository.Delete(bookId)
+	}
+	
 }
 
 func (b BookServiceImpl) FindById(bookId int) *response.BooksResponse {
 	book, err := b.BookRepository.FindById(bookId)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 	
 	if book != nil {
 

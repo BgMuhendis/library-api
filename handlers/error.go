@@ -1,4 +1,4 @@
-package helper
+package handlers
 
 func ThrowError(err error) {
 	if err != nil {

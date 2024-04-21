@@ -5,7 +5,7 @@ import (
 	"library/cache"
 	"library/model/dto/request"
 	"library/model/dto/response"
-	"library/helper"
+	"library/handlers"
 	"library/service"
 	"strconv"
 	"github.com/gofiber/fiber/v2"
@@ -45,7 +45,7 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 	crateBookRequest := request.CreateBookRequest{}
 	err := ctx.BodyParser(&crateBookRequest)
 
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 	bookApp.bookService.Create(crateBookRequest)
 
 	webResponse := response.Response{
@@ -72,11 +72,11 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 
 	updateBookRequest := request.UpdateBookRequest{}
 	err := ctx.BodyParser(&updateBookRequest)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 
 	updateBookRequest.Id = id
 	bookApp.bookService.Update(updateBookRequest)
@@ -105,7 +105,7 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 	bookApp.bookService.Delete(id)
 
 	webResponse := response.Response{
@@ -133,7 +133,7 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 
 	bookId := ctx.Params("bookId")
 	id, err := strconv.Atoi(bookId)
-	helper.ThrowError(err)
+	handlers.ThrowError(err)
 	bookResponse := bookApp.bookService.FindById(id)
 
 	webResponse := response.Response{

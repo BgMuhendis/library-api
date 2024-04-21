@@ -12,6 +12,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/gofiber/swagger"
 	_"library/docs"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 //	@title			Library API
@@ -26,6 +27,7 @@ import (
 //	@BasePath		/
 func main() {
 	app := fiber.New()
+	app.Use(recover.New())
 	app.Get("/swagger/*",swagger.HandlerDefault)
 
 	if err := godotenv.Load(); err!= nil {

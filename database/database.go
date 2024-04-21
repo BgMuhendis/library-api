@@ -33,5 +33,5 @@ func (d *DBInfo) DBClose()  {
 }
 
 func (d *DBInfo) Automigrate(tableName string)  {
-		d.Db.Table("books").AutoMigrate(&entity.Book{})
+		d.Db.Table(tableName).AutoMigrate(&entity.Book{})
 }

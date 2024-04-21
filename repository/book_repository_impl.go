@@ -2,7 +2,7 @@ package repository
 
 import (
 	"errors"
-	"library/helper"
+	"library/handlers"
 	"library/model/dto/request"
 	"library/model/entity"
 
@@ -19,7 +19,7 @@ func NewBookRepositoryImpl(Db *gorm.DB) BookRepository {
 
 func (b BookRepositoryImpl) Save(book entity.Book) {
 	result := b.Db.Create(&book)
-	helper.ThrowError(result.Error)
+	handlers.ThrowError(result.Error)
 }
 
 func (b BookRepositoryImpl) Update(book entity.Book) {
@@ -28,14 +28,14 @@ func (b BookRepositoryImpl) Update(book entity.Book) {
 		Status: book.Status,
 	}
 	result := b.Db.Model(&book).Where("status = ?",!updateBook.Status).Update("status",updateBook.Status)
-	helper.ThrowError(result.Error)
+	handlers.ThrowError(result.Error)
 
 }
 
 func (b BookRepositoryImpl) Delete(bookId int) {
 	var book entity.Book
 	result := b.Db.Where("id=?", bookId).Delete(&book)
-	helper.ThrowError(result.Error)
+	handlers.ThrowError(result.Error)
 
 }
 
@@ -51,6 +51,6 @@ func (b BookRepositoryImpl) FindById(bookId int) (*entity.Book, error) {
 func (b BookRepositoryImpl) FindAll() []entity.Book {
 	var books []entity.Book
 	result := b.Db.Order("id").Find(&books)
-	helper.ThrowError(result.Error)
+	handlers.ThrowError(result.Error)
 	return books
 }

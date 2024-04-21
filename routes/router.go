@@ -4,8 +4,6 @@ import (
 	"library/controller"
 
 	"github.com/gofiber/fiber/v2"
-
-	
 )
 
 func NewRouter(bookApp *controller.BookApp) *fiber.App {
@@ -26,8 +24,7 @@ func NewRouter(bookApp *controller.BookApp) *fiber.App {
 
 	router.Use(func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"success": false,
-			"message":"Endpoint not found!",
+			"message":"Not found Endpoint",
 		})
 	})
 
