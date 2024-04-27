@@ -26,21 +26,23 @@ import (
 //	@host			localhost:3000
 //	@BasePath		/
 func main() {
-	app := fiber.New()
-	app.Use(recover.New())
-	app.Get("/swagger/*",swagger.HandlerDefault)
+
 
 	if err := godotenv.Load(); err!= nil {
 		log.Println("No .env ile found")
 	}
 
-	connect := database.ConnectDB()
+	connect ,err:= database.ConnectDB()
+
+	if err != nil {
+		panic("Database is not connection")
+	}
 
 	defer connect.DBClose()
 
 	validate := validator.New()
 
-	connect.Automigrate("books")
+	connect.Runmigrate("books")
 
 	bookRepository := repository.NewBookRepositoryImpl(connect.Db)
 
@@ -49,8 +51,12 @@ func main() {
 	bookApp := controller.NewBookApp(bookService)
 
 	routes := routes.NewRouter(bookApp)
-
 	
+	app := fiber.New()
+
+	app.Use(recover.New())
+
+	app.Get("/swagger/*",swagger.HandlerDefault)
 
 	app.Mount("/api", routes)
 

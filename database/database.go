@@ -13,18 +13,18 @@ type DBInfo struct {
 		Db  *gorm.DB
 }
 
-func ConnectDB() *DBInfo {
+func ConnectDB() (*DBInfo,error) {
  dbInfo := os.Getenv("DATABASE_URL")
  db,err := gorm.Open(postgres.Open(dbInfo), &gorm.Config{})
 
 	if err != nil {
-		panic(err)
+		return nil,err
 	}
 
 
 	return &DBInfo {
 		Db:db,
-	}
+	},nil
 }
 
 func (d *DBInfo) DBClose()  {
@@ -32,6 +32,6 @@ func (d *DBInfo) DBClose()  {
 		 connection.Close() 
 }
 
-func (d *DBInfo) Automigrate(tableName string)  {
+func (d *DBInfo) Runmigrate(tableName string)  {
 		d.Db.Table(tableName).AutoMigrate(&entity.Book{})
 }
