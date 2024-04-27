@@ -157,6 +157,8 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 
 	var bookResponse []response.BooksResponse
 	booksCache := cacheRedis.Get("books")
+	webResponse := response.Response{
+	}
 
 	if booksCache !=nil {
 		err := json.Unmarshal(booksCache,&bookResponse)
@@ -173,12 +175,16 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 		go func(books []byte) {
 			cacheRedis.Set("books",books)
 		}(booksListBytes)
+
+		if len(bookResponse) > 0 {
+				webResponse.Message="Getting books"
+				webResponse.Data= bookResponse
+		}else{
+			webResponse.Message="Not found books"
+		}
 	}
 
-	webResponse := response.Response{
-		Message: "Successfully get books",
-		Data:    bookResponse,
-	}
+
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
 
 }
