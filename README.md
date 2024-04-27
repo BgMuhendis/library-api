@@ -82,3 +82,9 @@ var (
 ```shell
 go run cmd/main.go
 ```
+
+## API Documentation
+
+<img width="1481" alt="Screenshot 2024-04-27 at 13 42 12" src="https://github.com/BgMuhendis/library-api/assets/34186839/37483601-afee-48e0-9347-af0ad8dbdf41">
+
+
