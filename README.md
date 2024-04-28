@@ -1,10 +1,11 @@
 # Library-API
 
-I created the book api with [Fiber](https://docs.gofiber.io/) framework
-
-## Installation
-
-You can visit to [go](https://go.dev/dl/) install Go packages.
+## Technologies Used
+- Go
+- Docker
+- Redis
+- PostgreSQL
+- Swagger
 
 ## Using with Docker Compose
 ```yaml
