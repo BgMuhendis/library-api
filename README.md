@@ -2,6 +2,7 @@
 
 ## Technologies Used
 - Go
+- GORM
 - Docker
 - Redis
 - PostgreSQL
