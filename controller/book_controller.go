@@ -50,7 +50,6 @@ func (bookApp *BookApp) Create(ctx *fiber.Ctx) error {
 
 	webResponse := response.Response{
 		Message: "Successfully created a book",
-		Data:    nil,
 	}
 	go cacheDelete()
 
@@ -83,7 +82,6 @@ func (bookApp *BookApp) Update(ctx *fiber.Ctx) error {
 
 	webResponse := response.Response{
 		Message: "Successfully updated a book",
-		Data:    nil,
 	}
 
 	go cacheDelete()
@@ -110,7 +108,6 @@ func (bookApp *BookApp) Delete(ctx *fiber.Ctx) error {
 
 	webResponse := response.Response{
 		Message: "Successfully deleted a book",
-		Data:    nil,
 	}
 
 	go cacheDelete()
@@ -137,7 +134,6 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 	bookResponse := bookApp.bookService.FindById(id)
 
 	webResponse := response.Response{
-		Message: "Successfully get a book",
 		Data:    bookResponse,
 	}
 
@@ -172,12 +168,12 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 
 		booksListBytes , _ := json.Marshal(bookResponse)
 
-		go func(books []byte) {
-			cacheRedis.Set("books",books)
-		}(booksListBytes)
-
 		if len(bookResponse) > 0 {
-				webResponse.Message="Getting books"
+
+				go func(books []byte) {
+					cacheRedis.Set("books",books)
+				}(booksListBytes)
+
 				webResponse.Data= bookResponse
 		}else{
 			webResponse.Message="Not found books"

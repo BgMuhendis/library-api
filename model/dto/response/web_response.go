@@ -1,6 +1,6 @@
 package response
 
 type Response struct {
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Message string      `json:"message,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
