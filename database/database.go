@@ -1,7 +1,7 @@
 package database
 
 import (
-	"library/model/entity"
+	"library/internal/model/entity"
 	"os"
 
 	"gorm.io/driver/postgres"

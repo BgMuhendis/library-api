@@ -1,8 +1,8 @@
 package service
 
 import (
-	"library/model/dto/request"
-	"library/model/dto/response"
+	"library/internal/model/dto/request"
+	"library/internal/model/dto/response"
 )
 
 type BookService interface {

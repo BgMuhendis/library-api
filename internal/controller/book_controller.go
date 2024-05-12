@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"library/cache"
 	"library/errorHandler"
-	"library/model/dto/request"
-	"library/model/dto/response"
+	"library/internal/model/dto/request"
+	"library/internal/model/dto/response"
 	"library/internal/service"
 	"strconv"
 

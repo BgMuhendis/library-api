@@ -1,10 +1,10 @@
 package service
 
 import (
-	"library/model/dto/request"
-	"library/model/dto/response"
+	"library/internal/model/dto/request"
+	"library/internal/model/dto/response"
 	"library/errorHandler"
-	"library/model/entity"
+	"library/internal/model/entity"
 	"library/internal/repository"
 	"github.com/go-playground/validator/v10"
 )

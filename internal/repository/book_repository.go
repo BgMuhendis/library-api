@@ -1,6 +1,6 @@
 package repository
 
-import "library/model/entity"
+import "library/internal/model/entity"
 
 
 
