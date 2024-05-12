@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"library/controller"
+	"library/internal/controller"
 
 	"github.com/gofiber/fiber/v2"
 )

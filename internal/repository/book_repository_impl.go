@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"library/handlers"
+	"library/errorHandler"
 	"library/model/dto/request"
 	"library/model/entity"
 

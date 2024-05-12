@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"library/cache"
-	"library/handlers"
+	"library/errorHandler"
 	"library/model/dto/request"
 	"library/model/dto/response"
-	"library/service"
+	"library/internal/service"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
