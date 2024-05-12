@@ -2,12 +2,14 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"library/cache"
+	"library/handlers"
 	"library/model/dto/request"
 	"library/model/dto/response"
-	"library/handlers"
 	"library/service"
 	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -132,9 +134,14 @@ func (bookApp *BookApp) FindById(ctx *fiber.Ctx) error {
 	id, err := strconv.Atoi(bookId)
 	handlers.ThrowError(err)
 	bookResponse := bookApp.bookService.FindById(id)
-
 	webResponse := response.Response{
-		Data:    bookResponse,
+	}
+
+	if bookResponse.Name != "" {
+		webResponse.Data=bookResponse
+	}else{
+		result := fmt.Sprintf("Book with id %d not found",id)
+		webResponse.Message=result
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
@@ -162,6 +169,7 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 		if err != nil {
 			return nil
 		}
+		webResponse.Data=bookResponse
 	}else{
 
 		bookResponse = bookApp.bookService.FindAll()

@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"library/handlers"
 	"library/model/dto/request"
 	"library/model/entity"
@@ -41,10 +40,7 @@ func (b BookRepositoryImpl) Delete(bookId int) {
 
 func (b BookRepositoryImpl) FindById(bookId int) (*entity.Book, error) {
 	var book entity.Book
-	result := b.Db.Find(&book, bookId)
-	if result.RowsAffected != 1 {
-		return nil, errors.New("Book not found")
-	}
+	b.Db.Find(&book, bookId)
 	return &book, nil
 }
 
