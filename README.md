@@ -1,12 +1,12 @@
 # Library-API
 
 ## Technologies Used
-- Go
-- GORM
-- Docker
-- Redis
-- PostgreSQL
-- Swagger
+- [Go](https://go.dev)
+- [GORM](https://gorm.io/index.html)
+- [Docker](https://www.docker.com)
+- [Redis](https://github.com/redis/go-redis)
+- [PostgreSQL](https://gorm.io/docs/connecting_to_the_database.html)
+- [Swagger](https://github.com/swaggo/swag)
 
 ## Using with Docker Compose
 ```yaml

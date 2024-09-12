@@ -42,7 +42,7 @@ func main() {
 
 	validate := validator.New()
 
-	connect.Runmigrate("books")
+	connect.RunMigrate("books")
 
 	bookRepository := repository.NewBookRepositoryImpl(connect.Db)
 

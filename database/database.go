@@ -3,6 +3,7 @@ package database
 import (
 	"library/internal/model/entity"
 	"os"
+	"fmt"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -28,10 +29,14 @@ func ConnectDB() (*DBInfo,error) {
 }
 
 func (d *DBInfo) DBClose()  {
-		 connection, _ := d.Db.DB()
+		 connection, err := d.Db.DB()
+
+		 if err!=nil {
+			fmt.Println(nil)
+		 }
 		 connection.Close() 
 }
 
-func (d *DBInfo) Runmigrate(tableName string)  {
+func (d *DBInfo) RunMigrate(tableName string)  {
 		d.Db.Table(tableName).AutoMigrate(&entity.Book{})
 }
