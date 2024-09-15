@@ -1,7 +1,7 @@
 package main
 
 import (
-	"library/internal/app/controller"
+	"library/internal/app/handler"
 	"library/internal/infrastructure/database"
 	"library/internal/app/repository"
 	"library/internal/app/routes"
