@@ -40,7 +40,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: library
     ports:
-      - 5432:5432
+      - 5433:5433
     volumes: 
       - postgres:/var/lib/postgresql/data
     networks:
