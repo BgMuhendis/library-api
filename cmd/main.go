@@ -1,11 +1,11 @@
 package main
 
 import (
-	"library/internal/controller"
-	"library/database"
-	"library/internal/repository"
-	"library/routes"
-	"library/internal/service"
+	"library/internal/app/controller"
+	"library/internal/infrastructure/database"
+	"library/internal/app/repository"
+	"library/internal/app/routes"
+	"library/internal/app/service"
 	"log"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"

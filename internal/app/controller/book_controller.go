@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"library/cache"
 	"library/errorHandler"
-	"library/internal/model/dto/request"
-	"library/internal/model/dto/response"
-	"library/internal/service"
+	"library/internal/app/model/dto/request"
+	"library/internal/app/model/dto/response"
+	"library/internal/app/service"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"

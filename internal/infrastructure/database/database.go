@@ -1,7 +1,7 @@
 package database
 
 import (
-	"library/internal/model/entity"
+	"library/internal/app/model/entity"
 	"os"
 	"fmt"
 

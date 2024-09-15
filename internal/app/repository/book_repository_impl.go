@@ -2,8 +2,8 @@ package repository
 
 import (
 	"library/errorHandler"
-	"library/internal/model/dto/request"
-	"library/internal/model/entity"
+	"library/internal/app/model/dto/request"
+	"library/internal/app/model/entity"
 
 	"gorm.io/gorm"
 )
