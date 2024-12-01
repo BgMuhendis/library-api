@@ -51,7 +51,7 @@ func main() {
 	bookApp := controller.NewBookApp(bookService)
 
 	routes := routes.NewRouter(bookApp)
-	
+
 	app := fiber.New()
 
 	app.Use(recover.New())
@@ -61,5 +61,7 @@ func main() {
 	app.Mount("/api", routes)
 
 	log.Fatal(app.Listen(":3000"))
+
+	
 
 }

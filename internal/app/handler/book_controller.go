@@ -188,7 +188,5 @@ func (bookApp *BookApp) FindAll(ctx *fiber.Ctx) error {
 		}
 	}
 
-
 	return ctx.Status(fiber.StatusOK).JSON(webResponse)
-
 }

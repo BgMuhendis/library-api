@@ -1,7 +1,7 @@
-dev:
+docker-run:
 	docker-compose up -d
 	
-dev-down:
+docker-stop:
 	docker-compose down
 
 install-modules:
@@ -9,3 +9,5 @@ install-modules:
 	go get github.com/go-playground/validator/v10
 	go get -u gorm.io/gorm
 	go get gorm.io/driver/postgres
+
+
